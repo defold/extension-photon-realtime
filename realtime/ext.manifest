@@ -18,7 +18,7 @@ platforms:
     android:
         context:
             defines:  ["_EG_ANDROID_PLATFORM"]
-            flags:    ["-fno-exceptions", "-fno-rtti"]
+            flags:    ["-fno-exceptions", "-fno-rtti", "-std=c++11"]
     linux:
         context:
             defines:  ["_EG_LINUX_PLATFORM"]
