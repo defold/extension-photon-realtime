@@ -1,5 +1,5 @@
 /* Exit Games Photon LoadBalancing - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -50,6 +50,7 @@ namespace ExitGames
 			virtual void onFindFriendsResponse(void) {}
 			virtual void onLobbyStatsResponse(const Common::JVector<LobbyStatsResponse>& /*lobbyStats*/) {}
 			virtual void webRpcReturn(int /*errorCode*/, const Common::JString& /*errorString*/, const Common::JString& /*uriPath*/, int /*resultCode*/, const Common::Dictionary<Common::Object, Common::Object>& /*returnData*/) {}
+			virtual void onPropertiesChangeFailed(void) {}
 
 			// info, that certain values have been updated
 			virtual void onRoomListUpdate(void) {}

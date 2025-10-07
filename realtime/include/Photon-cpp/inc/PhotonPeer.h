@@ -1,5 +1,5 @@
 /* Exit Games Photon - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -17,7 +17,7 @@
 #include "Photon-cpp/inc/TrafficStatsGameLevel.h"
 #include "Photon-cpp/inc/Version.h"
 
-#if defined _EG_MICROSOFT_PLATFORM || (defined _EG_APPLE_PLATFORM && !defined _EG_IPHONE_MACCATALYST_PLATFORM) || defined _EG_ANDROID_PLATFORM || defined _EG_SWITCH_PLATFORM || defined _EG_SONY_PLATFORM || defined EG_DOC
+#if defined _EG_MICROSOFT_PLATFORM || (defined _EG_APPLE_PLATFORM && !defined _EG_IPHONE_MACCATALYST_PLATFORM) || defined _EG_ANDROID_PLATFORM || defined _EG_NINTENDO_PLATFORM || defined _EG_SONY_PLATFORM || defined EG_DOC
 #	define _EG_DATAGRAM_ENCRYPTOR_AVAILABLE
 #endif
 
@@ -59,7 +59,7 @@ namespace ExitGames
 			virtual void resetTrafficStatsMaximumCounters(void);
 			virtual Common::JString vitalStatsToString(bool all) const;
 #if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
-			virtual void pingServer(const Common::JString& address, unsigned int pingAttempts);
+			virtual void pingServer(const Common::JString& address, unsigned int pingAttempts, nByte connectionProtocol);
 #endif
 			virtual void initUserDataEncryption(const Common::JVector<nByte>& secret);
 #if defined _EG_DATAGRAM_ENCRYPTOR_AVAILABLE

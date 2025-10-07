@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -21,6 +21,7 @@ namespace ExitGames
 			{
 			public:
 				typedef Etype type;
+				typedef void(*Deleter)(const Etype*);
 
 				virtual Etype* operator->(void);
 				virtual const Etype* operator->(void) const;
@@ -29,15 +30,14 @@ namespace ExitGames
 				virtual operator Etype*(void);
 				virtual operator const Etype*(void) const;
 			protected:
-				SmartPointerInterface(void (*pDeleter)(const Etype*));
-				SmartPointerInterface(Etype* pData, void (*pDeleter)(const Etype*));
+				SmartPointerInterface(void(*pDeleter)(const Etype*));
+				SmartPointerInterface(Etype* pData, void(*pDeleter)(const Etype*));
 				virtual ~SmartPointerInterface(void) = 0;
 
 				SmartPointerInterface(const SmartPointerInterface<Etype>& toCopy);
 				template<typename Ftype> SmartPointerInterface(const SmartPointerInterface<Ftype>& toCopy, const SmartPointerInterface<typename EnableIf<IsDerivedFrom<Ftype, Etype>::is, Ftype>::type>* pDummyDeducer=NULL);
 
 				Etype* mpData;
-				typedef void (*Deleter)(const Etype*);
 				Deleter mpDeleter;
 			private:
 				SmartPointerInterface& operator=(const SmartPointerInterface<Etype>& toCopy);
@@ -46,14 +46,14 @@ namespace ExitGames
 
 
 			template<typename Etype>
-			SmartPointerInterface<Etype>::SmartPointerInterface(void (*pDeleter)(const Etype*))
+			SmartPointerInterface<Etype>::SmartPointerInterface(void(*pDeleter)(const Etype*))
 				: mpData(NULL)
 				, mpDeleter(pDeleter)
 			{
 			}
 
 			template<typename Etype>
-			SmartPointerInterface<Etype>::SmartPointerInterface(Etype* pData, void (*pDeleter)(const Etype*))
+			SmartPointerInterface<Etype>::SmartPointerInterface(Etype* pData, void(*pDeleter)(const Etype*))
 				: mpData(pData)
 				, mpDeleter(pDeleter)
 			{

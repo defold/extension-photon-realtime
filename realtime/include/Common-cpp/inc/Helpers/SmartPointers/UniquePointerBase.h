@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -18,8 +18,8 @@ namespace ExitGames
 			class UniquePointerBase : public SmartPointerInterface<Etype>
 			{
 			protected:
-				UniquePointerBase(void (*pDeleter)(const Etype*));
-				UniquePointerBase(Etype* pData, void (*pDeleter)(const Etype*));
+				UniquePointerBase(void(*pDeleter)(const Etype*));
+				UniquePointerBase(Etype* pData, void(*pDeleter)(const Etype*));
 				virtual ~UniquePointerBase(void) = 0;
 
 				virtual inline UniquePointerBase<Etype>& operator=(Etype* pData); // 'inline' prevents a false positive for MSVC warning 4505
@@ -33,12 +33,12 @@ namespace ExitGames
 
 
 			template<typename Etype>
-			UniquePointerBase<Etype>::UniquePointerBase(void (*pDeleter)(const Etype*)) : SmartPointerInterface<Etype>(pDeleter)
+			UniquePointerBase<Etype>::UniquePointerBase(void(*pDeleter)(const Etype*)) : SmartPointerInterface<Etype>(pDeleter)
 			{
 			}
 
 			template<typename Etype>
-			UniquePointerBase<Etype>::UniquePointerBase(Etype* pData, void (*pDeleter)(const Etype*)) : SmartPointerInterface<Etype>(pData, pDeleter)
+			UniquePointerBase<Etype>::UniquePointerBase(Etype* pData, void(*pDeleter)(const Etype*)) : SmartPointerInterface<Etype>(pData, pDeleter)
 			{
 			}
 

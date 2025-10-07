@@ -1,13 +1,14 @@
 /* Exit Games Photon - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
 
 #pragma once
 
-#include "Photon-cpp/inc/OperationResponse.h"
+#include "Photon-cpp/inc/DisconnectMessage.h"
 #include "Photon-cpp/inc/EventData.h"
+#include "Photon-cpp/inc/OperationResponse.h"
 
 namespace ExitGames
 {
@@ -23,7 +24,7 @@ namespace ExitGames
 		   </table>
 		   Please note that Photon will free any data passed as arguments as soon as the callback function returns, so make sure to create copies within the callback function of all data needed by
 		   your application beyond the scope of the callback function.                                                                                       */
-		class PhotonListener: public virtual Common::BaseListener
+		class PhotonListener : public virtual Common::BaseListener
 		{
 		public:
 			/**
@@ -85,6 +86,10 @@ namespace ExitGames
 			virtual void onMessage(const Common::Object& /*message*/) {};
 
 			virtual void onRawMessage(nByte* /*inBuff*/, int /*inBuffBodyLength*/) {};
+
+
+			/** Called when the client received a disconnect message from the server. Signals an error and provides a message to debug the case. */
+			virtual void onDisconnectMessage(const DisconnectMessage& disconnectMessage) {};
 			
 			/**
 			 This is the callback for PhotonPeer::pingServer().
@@ -96,11 +101,12 @@ namespace ExitGames
 			 @note: Also this function is not available on platforms that do not support multithreading.
 			
 			 @param address the address, which has been pinged
-			 @param pingResult the time in ms
+			 @param pingResult the ping timespan in ms
+			 @param pingSendTime the point in time in ms at which the ping got sent (to differentiate different pings to the same address from each other)
 			 @sa
 			 PhotonPeer::pingServer() */
 #if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
-			virtual void onPingResponse(const Common::JString& EG_UNUSED(address), unsigned int EG_UNUSED(pingResult)){}
+			virtual void onPingResponse(const Common::JString& EG_UNUSED(address), unsigned int EG_UNUSED(pingResult), unsigned int EG_UNUSED(pingSendTime)){}
 #endif
 		};
 

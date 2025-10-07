@@ -1,5 +1,5 @@
 /* Exit Games Photon - C++ Client Lib
-* Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+* Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
 * https://www.photonengine.com
 * mailto:developer@photonengine.com
 */
@@ -15,6 +15,7 @@ namespace ExitGames
 		namespace Internal
 		{
 			class PeerBase;
+			class WebSocketPingListener;
 		}
 
 		class OperationResponse
@@ -46,6 +47,7 @@ namespace ExitGames
 			Common::Dictionary<nByte, Common::Object> mParameters;
 
 			friend class Internal::PeerBase;
+			friend class Internal::WebSocketPingListener;
 		};
 	}
 }

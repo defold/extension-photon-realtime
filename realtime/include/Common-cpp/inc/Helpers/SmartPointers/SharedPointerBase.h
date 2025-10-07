@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -21,14 +21,17 @@ namespace ExitGames
 			class SharedPointerBase : public SmartPointerInterface<Etype>
 			{
 			protected:
-				SharedPointerBase(void (*pDeleter)(const Etype*));
-				SharedPointerBase(Etype* pData, void (*pDeleter)(const Etype*));
+				SharedPointerBase(void(*pDeleter)(const Etype*));
+				SharedPointerBase(Etype* pData, void(*pDeleter)(const Etype*));
 				virtual ~SharedPointerBase(void) = 0;
 
 				SharedPointerBase(const SharedPointerBase<Etype>& toCopy);
 				template<typename Ftype> SharedPointerBase(const SharedPointerBase<Ftype>& toCopy, const SharedPointerBase<typename EnableIf<IsDerivedFrom<Ftype, Etype>::is, Ftype>::type>* pDummyDeducer=NULL);
-				virtual SharedPointerBase& operator=(const SharedPointerBase<Etype>& toCopy);
+				virtual SharedPointerBase<Etype>& operator=(const SharedPointerBase<Etype>& toCopy);
 				template<typename Ftype> SharedPointerBase<typename EnableIf<IsDerivedFrom<Ftype, Etype>::is, Etype>::type>& operator=(const SharedPointerBase<Ftype>& toCopy);
+
+				template<typename Ftype> SharedPointerBase& assign(const SharedPointerBase<Ftype>& toCopy);
+				SharedPointerBase<Etype>& assign(Etype* toCopy, void(*pDeleter)(const Etype*));
 
 #ifdef EG_PLATFORM_SUPPORTS_ATOMICS
 				typedef std::atomic<unsigned int> atomicUInt;
@@ -37,8 +40,6 @@ namespace ExitGames
 #endif
 				atomicUInt* mpRefCount;
 			private:
-				template<typename Ftype> SharedPointerBase& assign(const SharedPointerBase<Ftype>& toCopy);
-
 				typedef SmartPointerInterface<Etype> super;
 				template<typename T> friend class SharedPointerBase;
 			};
@@ -46,16 +47,16 @@ namespace ExitGames
 
 
 			template<typename Etype>
-			SharedPointerBase<Etype>::SharedPointerBase(void (*pDeleter)(const Etype*))
+			SharedPointerBase<Etype>::SharedPointerBase(void(*pDeleter)(const Etype*))
 				: SmartPointerInterface<Etype>(pDeleter)
 				, mpRefCount(NULL)
 			{
 			}
 
 			template<typename Etype>
-			SharedPointerBase<Etype>::SharedPointerBase(Etype* pData, void (*pDeleter)(const Etype*))
+			SharedPointerBase<Etype>::SharedPointerBase(Etype* pData, void(*pDeleter)(const Etype*))
 				: SmartPointerInterface<Etype>(pData, pDeleter)
-				, mpRefCount(MemoryManagement::allocate<atomicUInt>(1))
+				, mpRefCount(pData?MemoryManagement::allocate<atomicUInt>(1):NULL)
 			{
 			}
 
@@ -111,8 +112,24 @@ namespace ExitGames
 				}
 				super::mpData = toCopy.mpData;
 				super::mpDeleter = reinterpret_cast<typename super::Deleter>(toCopy.mpDeleter);
-				if((mpRefCount=toCopy.mpRefCount) != 0)
+				if((mpRefCount=toCopy.mpRefCount) != 0) // the explicit '!= 0' here is required to suppress MSVC warning C4706 when user code compiles with warning level W4
 					++*mpRefCount;
+				return *this;
+			}
+
+			template<typename Etype>
+			SharedPointerBase<Etype>& SharedPointerBase<Etype>::assign(Etype* toCopy, void(*pDeleter)(const Etype*))
+			{
+				if(super::mpData == toCopy)
+					return *this;
+				if(mpRefCount && !--*mpRefCount)
+				{
+					super::mpDeleter(super::mpData);
+					MemoryManagement::deallocate(mpRefCount);
+				}
+				super::mpData = toCopy;
+				super::mpDeleter = pDeleter;
+				mpRefCount = toCopy?MemoryManagement::allocate<atomicUInt>(1):NULL;
 				return *this;
 			}
 		}

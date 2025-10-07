@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -43,7 +43,7 @@ namespace ExitGames
 			int mDebugLevel;
 #ifdef EG_LOGGING
 			BaseListener* mpListener;
-#	ifdef _EG_SWITCH_WINDOWS_PLATFORM
+#	ifdef _EG_NINTENDO_WINDOWS_PLATFORM
 			mutable bool mInitialized;
 #	endif
 #endif

@@ -22,3 +22,6 @@ platforms:
     linux:
         context:
             defines:  ["_EG_LINUX_PLATFORM"]
+    web:
+        context:
+            defines:  ["_EG_EMSCRIPTEN_PLATFORM"]

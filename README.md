@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/Realtime-5.0.12-green)
+![](https://img.shields.io/badge/Realtime-5.0.13-green)
 
 # Photon Realtime Extension for Defold
 
