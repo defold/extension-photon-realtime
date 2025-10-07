@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -18,8 +18,8 @@ namespace ExitGames
 			class UniquePointer : public UniquePointerBase<Etype>
 			{
 			public:
-				UniquePointer(void (*pDeleter)(const Etype*)=MemoryManagement::deallocate);
-				UniquePointer(Etype* pData, void (*pDeleter)(const Etype*)=MemoryManagement::deallocate);
+				UniquePointer(void(*pDeleter)(const Etype*)=MemoryManagement::deallocate);
+				UniquePointer(Etype* pData, void(*pDeleter)(const Etype*)=MemoryManagement::deallocate);
 
 				virtual inline UniquePointer<Etype>& operator=(Etype* pData); // 'inline' prevents a false positive for MSVC warning 4505
 			private:
@@ -33,8 +33,8 @@ namespace ExitGames
 			class UniquePointer<Etype[]> : public UniquePointerBase<Etype>
 			{
 			public:
-				UniquePointer(void (*pDeleter)(const Etype*)=MemoryManagement::deallocateArray);
-				UniquePointer(Etype* pData, void (*pDeleter)(const Etype*)=MemoryManagement::deallocateArray);
+				UniquePointer(void(*pDeleter)(const Etype*)=MemoryManagement::deallocateArray);
+				UniquePointer(Etype* pData, void(*pDeleter)(const Etype*)=MemoryManagement::deallocateArray);
 
 				virtual inline UniquePointer<Etype[]>& operator=(Etype* pData); // 'inline' prevents a false positive for MSVC warning 4505
 			private:
@@ -47,12 +47,12 @@ namespace ExitGames
 
 
 			template<typename Etype>
-			UniquePointer<Etype>::UniquePointer(void (*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pDeleter)
+			UniquePointer<Etype>::UniquePointer(void(*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pDeleter)
 			{
 			}
 
 			template<typename Etype>
-			UniquePointer<Etype>::UniquePointer(Etype* pData, void (*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pData, pDeleter)
+			UniquePointer<Etype>::UniquePointer(Etype* pData, void(*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pData, pDeleter)
 			{
 			}
 
@@ -66,12 +66,12 @@ namespace ExitGames
 
 
 			template<typename Etype>
-			UniquePointer<Etype[]>::UniquePointer(void (*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pDeleter)
+			UniquePointer<Etype[]>::UniquePointer(void(*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pDeleter)
 			{
 			}
 
 			template<typename Etype>
-			UniquePointer<Etype[]>::UniquePointer(Etype* pData, void (*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pData, pDeleter)
+			UniquePointer<Etype[]>::UniquePointer(Etype* pData, void(*pDeleter)(const Etype*)) : UniquePointerBase<Etype>(pData, pDeleter)
 			{
 			}
 

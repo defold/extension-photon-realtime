@@ -1,16 +1,16 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
 
 #pragma once
 
-#if !defined _EG_LINUX_PLATFORM && !defined _EG_IPHONE_PLATFORM && !defined _EG_IMAC_PLATFORM && !defined _EG_WINDOWS_PLATFORM && !defined _EG_ANDROID_PLATFORM && !defined _EG_PS4_PLATFORM && !defined _EG_TVOS_PLATFORM && !defined _EG_WINDOWSSTORE_PLATFORM && !defined _EG_EMSCRIPTEN_PLATFORM && !defined _EG_XB1_PLATFORM && !defined _EG_SWITCH_PLATFORM && !defined _EG_GAMECORE_PLATFORM && !defined _EG_PS5_PLATFORM
+#if !defined _EG_LINUX_PLATFORM && !defined _EG_IPHONE_PLATFORM && !defined _EG_IMAC_PLATFORM && !defined _EG_WINDOWS_PLATFORM && !defined _EG_ANDROID_PLATFORM && !defined _EG_PS4_PLATFORM && !defined _EG_TVOS_PLATFORM && !defined _EG_WINDOWSSTORE_PLATFORM && !defined _EG_EMSCRIPTEN_PLATFORM && !defined _EG_XB1_PLATFORM && !defined _EG_SWITCH_PLATFORM && !defined _EG_GAMECORE_PLATFORM && !defined _EG_PS5_PLATFORM && !defined _EG_VISIONOS_PLATFORM && !defined _EG_SWITCH2_PLATFORM
 #	include "Common-cpp/inc/platform_definition.h"
 #endif
 
-#if defined _EG_IPHONE_PLATFORM || defined _EG_IMAC_PLATFORM || defined _EG_TVOS_PLATFORM
+#if defined _EG_IPHONE_PLATFORM || defined _EG_IMAC_PLATFORM || defined _EG_TVOS_PLATFORM || defined _EG_VISIONOS_PLATFORM
 #	define _EG_APPLE_PLATFORM true
 #endif
 
@@ -31,6 +31,25 @@
 #	endif
 #endif
 
+#if defined _EG_SWITCH2_PLATFORM
+#	include <nn/TargetConfigs/build_Platform.h>
+#	if defined NN_BUILD_TARGET_PLATFORM_OUNCE
+#		define _EG_SWITCH2_OUNCE_PLATFORM true
+#	else
+#		define _EG_SWITCH2_WINDOWS_PLATFORM true
+#	endif
+#endif
+
+#if defined _EG_SWITCH_PLATFORM || defined _EG_SWITCH2_PLATFORM
+#	define _EG_NINTENDO_PLATFORM true
+#	if defined _EG_SWITCH_NX_PLATFORM || defined _EG_SWITCH2_OUNCE_PLATFORM
+#		define _EG_NINTENDO_DEVICE_PLATFORM true
+#	endif
+#	if defined _EG_SWITCH_WINDOWS_PLATFORM || defined _EG_SWITCH2_WINDOWS_PLATFORM
+#		define _EG_NINTENDO_WINDOWS_PLATFORM true
+#	endif
+#endif
+
 #if defined _EG_PS4_PLATFORM || defined _EG_PS5_PLATFORM
 #	define _EG_SONY_PLATFORM true
 #	if !defined _EG_PS4_PLATFORM
@@ -38,7 +57,7 @@
 #	endif
 #endif
 
-#if defined _EG_LINUX_PLATFORM || defined _EG_APPLE_PLATFORM || defined _EG_ANDROID_PLATFORM || defined _EG_SONY_PLATFORM || defined _EG_EMSCRIPTEN_PLATFORM || defined _EG_SWITCH_PLATFORM
+#if defined _EG_LINUX_PLATFORM || defined _EG_APPLE_PLATFORM || defined _EG_ANDROID_PLATFORM || defined _EG_SONY_PLATFORM || defined _EG_EMSCRIPTEN_PLATFORM || defined _EG_NINTENDO_PLATFORM
 #	define _EG_UNIX_PLATFORM true
 #endif
 
@@ -61,7 +80,7 @@
 #	endif
 #endif
 
-#if defined _EG_MICROSOFT_PLATFORM || defined _EG_SWITCH_WINDOWS_PLATFORM
+#if defined _EG_MICROSOFT_PLATFORM || defined _EG_NINTENDO_WINDOWS_PLATFORM
 #	define _EG_MS_COMPILER true
 #endif
 
@@ -176,7 +195,7 @@ typedef wchar_t EG_CHAR;
 // format specifiers:
 #define EG_FRMT_SPCFR_STRTOSTR_A "s"
 #define EG_FRMT_SPCFR_WSTRTOSTR_A "ls" // "S" would also work
-#ifdef _EG_SWITCH_NX_PLATFORM
+#ifdef _EG_NINTENDO_DEVICE_PLATFORM
 #	define EG_FRMT_SPCFR_STRTOWSTR_A "s"
 #else
 #	define EG_FRMT_SPCFR_STRTOWSTR_A "hs" // "s" would also work with other compilers, except with MSVC, for which it would have to be "S"
@@ -185,7 +204,7 @@ typedef wchar_t EG_CHAR;
 
 #define EG_FRMT_SPCFR_STRTOSTR_W L"s"
 #define EG_FRMT_SPCFR_WSTRTOSTR_W L"ls" // "S" would also work
-#ifdef _EG_SWITCH_NX_PLATFORM
+#ifdef _EG_NINTENDO_DEVICE_PLATFORM
 #	define EG_FRMT_SPCFR_STRTOWSTR_W L"s"
 #else
 #	define EG_FRMT_SPCFR_STRTOWSTR_W L"hs" // "s" would also work with other compilers, except with MSVC, for which it would have to be "S"
@@ -214,7 +233,7 @@ typedef wchar_t EG_CHAR;
 #	endif
 #	include <Windows.h>
 #	if defined _EG_WINDOWS_PLATFORM || defined _EG_GAMECORE_DESKTOP_PLATFORM
-#		include <mmsystem.h>
+#		include <Mmsystem.h>
 #		define GETTIMEMS() static_cast<int>(timeGetTime()) // returns the number of milliseconds for which the computer was powered on (overflowing all about 49 days!), higher precision than GetTickCount64(), but only available on Windows Desktop and GameCore Desktop
 #	else
 #		define GETTIMEMS() static_cast<int>(GetTickCount64()) // returns the number of milliseconds for which the computer was powered on (overflowing all about 49 days!)
@@ -228,7 +247,7 @@ typedef wchar_t EG_CHAR;
 #include <stdio.h>
 
 // Debug output functions ////////////////////////////////////////////////
-#if defined _EG_LINUX_PLATFORM || defined _EG_EMSCRIPTEN_PLATFORM || defined _EG_SWITCH_PLATFORM
+#if defined _EG_LINUX_PLATFORM || defined _EG_EMSCRIPTEN_PLATFORM || defined _EG_NINTENDO_PLATFORM
 	#include <stdarg.h>
 #endif
 #if defined DBGPRINTF_LEVEL || defined DBGPRINTF_MEMORY_ACTIVE || defined DBGPRINTF_PERFORMANCE_ACTIVE

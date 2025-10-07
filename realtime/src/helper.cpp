@@ -1,5 +1,3 @@
-#if defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
-
 #include <dmsdk/sdk.h>
 #include "Common-cpp/inc/Object.h"
 #include "Common-cpp/inc/JString.h"
@@ -195,5 +193,3 @@ void table_pushintvector(lua_State* L, const char* key, const ExitGames::Common:
     }
     lua_rawset(L, -3);
 }
-
-#endif

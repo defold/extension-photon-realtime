@@ -1,5 +1,5 @@
 /* Exit Games Photon LoadBalancing - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -18,6 +18,10 @@
 #include "LoadBalancing-cpp/inc/MutablePlayer.h"
 #include "LoadBalancing-cpp/inc/MutableRoom.h"
 #include "LoadBalancing-cpp/inc/SendDirectOptions.h"
+
+#ifdef _EG_GAMECORE_PLATFORM
+	#define EG_PARALLELLY_PINGEND_REGIONS_LIMIT
+#endif
 
 namespace ExitGames
 {
@@ -154,7 +158,9 @@ namespace ExitGames
 			virtual void onOperationResponse(const Photon::OperationResponse& operationResponse);
 			virtual void onStatusChanged(int statusCode);
 			virtual void onEvent(const Photon::EventData& eventData);
-			virtual void onPingResponse(const Common::JString& address, unsigned int result);
+#if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
+			virtual void onPingResponse(const Common::JString& address, unsigned int result, unsigned int pingSendTime);
+#endif
 			virtual void debugReturn(int debugLevel, const Common::JString& string);
 		private:
 			void readoutProperties(Common::Hashtable& roomProperties, Common::Hashtable& playerProperties, bool multiplePlayers, int targetPlayerNr);
@@ -166,7 +172,7 @@ namespace ExitGames
 			MutableRoom* createMutableRoom(const Common::JString& name, const Common::Hashtable& properties, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JVector<Common::JString>& expectedUsers);
 			void destroyMutableRoom(const MutableRoom* pRoom) const;
 #if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
-			virtual void pingBestRegion(unsigned int pingsPerRegion);
+			void pingBestRegion(void);
 #endif
 			bool callPeerConnect(const Common::JString& address);
 			bool authenticate(void);
@@ -219,15 +225,42 @@ namespace ExitGames
 			const nByte M_REGION_SELECTION_MODE;
 			Common::JString mMasterserver;
 			const nByte M_CONNECTION_PROTOCOL;
+
+#if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
 			unsigned int mPingsPerRegion;
 			Common::JVector<Common::JVector<unsigned int> > mPingResponses;
+			Common::JVector<Common::JVector<int> > mPingSendTimes;
 			Common::JString mRegionWithBestPing;
+#endif
 			bool mUseAuthOnce;
 			bool mUseUDPEncryption;
 			Common::JString mCluster;
 			bool mUseAlternativePorts;
 			Internal::PuncherClient* mpPuncherClient;
 			bool mUseBackgroundSendReceiveThread;
+
+#ifdef EG_PARALLELLY_PINGEND_REGIONS_LIMIT
+			class BestRegionPinger
+			{
+			public:
+				BestRegionPinger(void);
+
+				virtual const BestRegionPinger* retain(void) const;
+				virtual void release(void) const;
+
+				static void pingBestRegion(void* pArg);
+			private:
+				~BestRegionPinger(void);
+
+#	ifdef EG_PLATFORM_SUPPORTS_ATOMICS
+				mutable std::atomic<unsigned char> mRefCount;
+#	else
+				mutable unsigned char mRefCount;
+#	endif
+			} &mBestRegionPinger;
+
+			const unsigned int M_MAX_PARALLELLY_PINGEND_REGIONS;
+#endif
 
 			const nByte M_SERIALIZATION_PROTOCOL;
 

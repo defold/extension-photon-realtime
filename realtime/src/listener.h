@@ -1,7 +1,5 @@
 #pragma once
 
-#if defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
-
 #include "LoadBalancing-cpp/inc/Listener.h"
 
 
@@ -112,5 +110,3 @@ public:
 
     void onGetRoomListResponse(const ExitGames::Common::JVector<ExitGames::Common::Helpers::SharedPointer<ExitGames::LoadBalancing::Room> >& roomList, const ExitGames::Common::JVector<ExitGames::Common::JString>& roomNameList);
 };
-
-#endif

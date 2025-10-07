@@ -14,8 +14,6 @@
 
 #include <dmsdk/sdk.h>
 
-#if defined(DM_PLATFORM_OSX) || defined(DM_PLATFORM_WINDOWS) || defined(DM_PLATFORM_LINUX) || defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
-
 #include "LoadBalancing-cpp/inc/Client.h"
 #include "listener.h"
 #include "helper.h"
@@ -1184,7 +1182,7 @@ static void LuaInit(lua_State* L)
      * @field DIRECTMODE_NONE
      */
     SETCONSTANT(DIRECTMODE_NONE, ExitGames::LoadBalancing::DirectMode::NONE)
-#ifndef DM_PLATFORM_WEB
+#ifndef DM_PLATFORM_HTML5
     /**
      * Each client establishes a direct connection with every other client inside the room.
      * @field DIRECTMODE_ALL_TO_OTHERS
@@ -1250,30 +1248,5 @@ dmExtension::Result FinalizeRealtime(dmExtension::Params* params)
     }
     return dmExtension::RESULT_OK;
 }
-
-#else
-
-static dmExtension::Result AppInitializeRealtime(dmExtension::AppParams* params)
-{
-    dmLogWarning("Registered %s (null) Extension", MODULE_NAME);
-    return dmExtension::RESULT_OK;
-}
-
-static dmExtension::Result InitializeRealtime(dmExtension::Params* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
-static dmExtension::Result AppFinalizeRealtime(dmExtension::AppParams* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
-static dmExtension::Result FinalizeRealtime(dmExtension::Params* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
-#endif
 
 DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeRealtime, AppFinalizeRealtime, InitializeRealtime, 0, 0, FinalizeRealtime)

@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -297,7 +297,7 @@ EG_PRAGMA_VISIBILITY_POP
 		   undefined behavior for invalid indexes!
 		   @param index the index of the element, that should be returned. Must not be bigger than the current size of the vector!
 		   @returns
-		   the element at the passed index.                            */
+		   the element at the specified index.                            */
 		template<template<typename> class T, typename Etype>
 		const Etype& SequenceContainer<T, Etype>::getElementAt(unsigned int index) const
 		{
@@ -487,7 +487,7 @@ EG_PRAGMA_VISIBILITY_POP
 		/**
 		   Inserts parameter one into the instance at the index,
 		   passed as parameter two. Because all elements above or at the
-		   passed index have to be moved one position up, it is
+		   specified index have to be moved one position up, it is
 		   expensive, to insert an element at an low index into a huge
 		   instance.
 		   @param obj the element, to insert.
@@ -557,7 +557,7 @@ EG_PRAGMA_VISIBILITY_POP
 		}
 
 		/**
-		   Removes the element at the passed index from the instance.
+		   Removes the element at the specified index from the instance.
 		   Shows undefined behavior for invalid indexes.
 		   @param index the index of the element to remove.
 		   @returns
@@ -579,7 +579,7 @@ EG_PRAGMA_VISIBILITY_POP
 		}
 
 		/**
-		   Sets the element at the passed index of the instance to
+		   Sets the element at the specified index of the instance to
 		   the passed new value. Shows undefined behavior for invalid
 		   indexes.
 		   @param obj the new value.

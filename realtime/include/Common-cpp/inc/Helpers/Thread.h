@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Common-cpp/inc/platformLayer.h"
-#if defined _EG_WINDOWSSTORE_PLATFORM || defined _EG_XB1_PLATFORM || defined _EG_SWITCH_PLATFORM || defined _EG_GAMECORE_PLATFORM
+#if defined _EG_WINDOWSSTORE_PLATFORM || defined _EG_XB1_PLATFORM || defined _EG_NINTENDO_PLATFORM || defined _EG_GAMECORE_PLATFORM
 #	include <thread>
 #else
 #	include "Common-cpp/inc/porting.h"
@@ -29,7 +29,7 @@ namespace ExitGames
 					bool operator==(const ID& Rhs) const;
 					bool operator!=(const ID& Rhs) const;
 				private:
-#			if defined _EG_UNIX_PLATFORM && !defined _EG_SWITCH_PLATFORM
+#			if defined _EG_UNIX_PLATFORM && !defined _EG_NINTENDO_PLATFORM
 					ID(pthread_t id);
 					pthread_t mID;
 #			elif defined _EG_MICROSOFT_PLATFORM

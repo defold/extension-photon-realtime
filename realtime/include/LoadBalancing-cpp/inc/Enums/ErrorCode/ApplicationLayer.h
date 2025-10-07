@@ -1,5 +1,5 @@
 /* Exit Games Photon LoadBalancing - C++ Client Lib
- * Copyright (C) 2004-2024 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -30,7 +30,7 @@ namespace ExitGames
 				static const int MAX_CCU_REACHED                     = 32757;
 				static const int INVALID_REGION                      = 32756;
 				static const int CUSTOM_AUTHENTICATION_FAILED        = 32755;
-				static const int AUTHENTICATION_TOKEN_EXPIRED        = 32753;
+				static const int AUTHENTICATION_TICKET_EXPIRED        = 32753;
 				static const int PLUGIN_REPORTED_ERROR               = 32752;
 				static const int PLUGIN_MISMATCH                     = 32751;
 				static const int JOIN_FAILED_PEER_ALREADY_JOINED     = 32750;
@@ -40,6 +40,7 @@ namespace ExitGames
 				static const int JOIN_FAILED_FOUND_ACTIVE_JOINER     = 32746;
 				static const int HTTP_LIMIT_REACHED                  = 32745;
 				static const int EXTERNAL_HTTP_CALL_FAILED           = 32744;
+				static const int OPERATION_LIMIT_REACHED             = 32743;
 				static const int SLOT_ERROR                          = 32742;
 				static const int INVALID_ENCRYPTION_PARAMETERS       = 32741;
 				static const int CLIENT_VERSION_TOO_OLD              = 32667;
