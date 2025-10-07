@@ -14,6 +14,10 @@
 
 #include <dmsdk/sdk.h>
 
+#include "photon_extension_defines.h"
+
+#if PHOTON_PLATFORM_SUPPORTED
+
 #include "LoadBalancing-cpp/inc/Client.h"
 #include "listener.h"
 #include "helper.h"
@@ -1248,5 +1252,30 @@ dmExtension::Result FinalizeRealtime(dmExtension::Params* params)
     }
     return dmExtension::RESULT_OK;
 }
+
+#else
+
+static dmExtension::Result AppInitializeRealtime(dmExtension::AppParams* params)
+{
+    dmLogWarning("Registered %s (null) Extension", MODULE_NAME);
+    return dmExtension::RESULT_OK;
+}
+
+static dmExtension::Result InitializeRealtime(dmExtension::Params* params)
+{
+    return dmExtension::RESULT_OK;
+}
+
+static dmExtension::Result AppFinalizeRealtime(dmExtension::AppParams* params)
+{
+    return dmExtension::RESULT_OK;
+}
+
+static dmExtension::Result FinalizeRealtime(dmExtension::Params* params)
+{
+    return dmExtension::RESULT_OK;
+}
+
+#endif
 
 DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeRealtime, AppFinalizeRealtime, InitializeRealtime, 0, 0, FinalizeRealtime)

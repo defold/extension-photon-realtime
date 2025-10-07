@@ -1,3 +1,7 @@
+#include "photon_extension_defines.h"
+
+#if PHOTON_PLATFORM_SUPPORTED
+
 #include <dmsdk/sdk.h>
 #include "Common-cpp/inc/Object.h"
 #include "Common-cpp/inc/JString.h"
@@ -549,3 +553,5 @@ void PhotonListener::onGetRoomListResponse(const ExitGames::Common::JVector<Exit
         invokeCallback(L);
     }
 }
+
+#endif

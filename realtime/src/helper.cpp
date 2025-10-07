@@ -1,3 +1,7 @@
+#include "photon_extension_defines.h"
+
+#if PHOTON_PLATFORM_SUPPORTED
+
 #include <dmsdk/sdk.h>
 #include "Common-cpp/inc/Object.h"
 #include "Common-cpp/inc/JString.h"
@@ -193,3 +197,5 @@ void table_pushintvector(lua_State* L, const char* key, const ExitGames::Common:
     }
     lua_rawset(L, -3);
 }
+
+#endif
