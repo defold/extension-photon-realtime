@@ -62,7 +62,7 @@ namespace ExitGames
 		protected:
 			using Room::payloadToString;
 
-			MutableRoom(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JVector<Common::JString>& expectedUsers);
+			MutableRoom(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JString& lobbyName, nByte lobbyType, const Common::JVector<Common::JString>& expectedUsers);
 
 			virtual bool getIsMutable(void) const;
 
@@ -71,6 +71,9 @@ namespace ExitGames
 			virtual void destroyPlayer(const Player* pPlayer) const;
 			virtual Common::JString payloadToString(bool withCustomProperties, bool withTypes, bool withPlayers) const;
 		private:
+			const Common::JString& getLobbyName(void) const;
+			const nByte getLobbyType(void) const;
+
 			void cacheProperties(const Common::Hashtable& properties);
 			template<typename Etype> bool setRoomProperty(nByte key, Etype val, const WebFlags& webflags);
 			template<typename Etype> bool setRoomProperty(nByte key, const Etype pValueArray, int arrSize, const WebFlags& webflags);
@@ -100,6 +103,8 @@ namespace ExitGames
 			Common::Helpers::UniquePointer<Common::JVector<Common::JString> > mupPlugins;
 			bool mPublishUserID;
 			Common::JVector<Common::JString> mExpectedUsers;
+			Common::JString mLobbyName;
+			nByte mLobbyType;
 
 			friend class Internal::MutableRoomFactory;
 			friend class Internal::RoomPropertiesCacher;
