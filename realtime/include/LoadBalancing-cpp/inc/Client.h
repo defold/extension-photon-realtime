@@ -169,7 +169,7 @@ namespace ExitGames
 			void onArrivalAndAuthentication(void);
 			MutablePlayer* createMutablePlayer(int number, const Common::Hashtable& properties);
 			void destroyMutablePlayer(const MutablePlayer* pPlayer) const;
-			MutableRoom* createMutableRoom(const Common::JString& name, const Common::Hashtable& properties, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JVector<Common::JString>& expectedUsers);
+			MutableRoom* createMutableRoom(const Common::JString& name, const Common::Hashtable& properties, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JString& lobbyName, nByte lobbyType, const Common::JVector<Common::JString>& expectedUsers);
 			void destroyMutableRoom(const MutableRoom* pRoom) const;
 #if defined EG_PLATFORM_SUPPORTS_CPP11 && defined EG_PLATFORM_SUPPORTS_MULTITHREADING
 			void pingBestRegion(void);
@@ -238,6 +238,7 @@ namespace ExitGames
 			bool mUseAlternativePorts;
 			Internal::PuncherClient* mpPuncherClient;
 			bool mUseBackgroundSendReceiveThread;
+			RoomOptions mRoomOptions;
 
 #ifdef EG_PARALLELLY_PINGEND_REGIONS_LIMIT
 			class BestRegionPinger

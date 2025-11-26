@@ -83,13 +83,13 @@ namespace ExitGames
 			 @link SendingAndReceivingData Sending and receiving data\endlink, LitePeer::opRaiseEvent() */
 			virtual void onEvent(const EventData& eventData) = 0;
 			
-			virtual void onMessage(const Common::Object& /*message*/) {};
+			virtual void onMessage(const Common::Object& EG_UNUSED(message)) {};
 
-			virtual void onRawMessage(nByte* /*inBuff*/, int /*inBuffBodyLength*/) {};
+			virtual void onRawMessage(nByte* EG_UNUSED(inBuff), int EG_UNUSED(inBuffBodyLength)) {};
 
 
 			/** Called when the client received a disconnect message from the server. Signals an error and provides a message to debug the case. */
-			virtual void onDisconnectMessage(const DisconnectMessage& disconnectMessage) {};
+			virtual void onDisconnectMessage(const DisconnectMessage& EG_UNUSED(disconnectMessage)) {};
 			
 			/**
 			 This is the callback for PhotonPeer::pingServer().

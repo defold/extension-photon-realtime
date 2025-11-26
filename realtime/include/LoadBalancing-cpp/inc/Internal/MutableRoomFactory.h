@@ -22,7 +22,7 @@ namespace ExitGames
 			{
 			protected:
 				virtual ~MutableRoomFactory(void);
-				virtual MutableRoom* create(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JVector<Common::JString>& expectedUsers);
+				virtual MutableRoom* create(const Common::JString& name, const Common::Hashtable& properties, Client* pClient, const Common::JVector<Common::JString>& propsListedInLobby, int playerTtl, int emptyRoomTtl, bool suppressRoomEvents, const Common::JVector<Common::JString>* pPlugins, bool publishUserID, const Common::JString& lobbyName, nByte lobbyType, const Common::JVector<Common::JString>& expectedUsers);
 				virtual void destroy(const MutableRoom* pRoom);
 			private:
 				friend class LoadBalancing::Client;
