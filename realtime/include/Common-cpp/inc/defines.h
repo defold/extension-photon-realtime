@@ -233,7 +233,7 @@ typedef wchar_t EG_CHAR;
 #	endif
 #	include <Windows.h>
 #	if defined _EG_WINDOWS_PLATFORM || defined _EG_GAMECORE_DESKTOP_PLATFORM
-#		include <Mmsystem.h>
+#		include <mmsystem.h>
 #		define GETTIMEMS() static_cast<int>(timeGetTime()) // returns the number of milliseconds for which the computer was powered on (overflowing all about 49 days!), higher precision than GetTickCount64(), but only available on Windows Desktop and GameCore Desktop
 #	else
 #		define GETTIMEMS() static_cast<int>(GetTickCount64()) // returns the number of milliseconds for which the computer was powered on (overflowing all about 49 days!)
