@@ -345,43 +345,38 @@ static int Connect(lua_State* L)
         while (lua_next(L, -2) != 0)
         {
             const char* key = luaL_checkstring(L, -2);
-            if (dmStrCaseCmp(key, "username"))
+            if (dmStrCaseCmp(key, "username") == 0)
             {
                 const char* username = luaL_checkstring(L, -1);
                 connectOptions.setUsername(username);
                 authValues.setUserID(username);
             }
-            else if (dmStrCaseCmp(key, "use_datagram_encryption"))
+            else if (dmStrCaseCmp(key, "use_datagram_encryption") == 0)
             {
                 bool useDatagramEncryption = lua_toboolean(L, -1);
                 connectOptions.setTryUseDatagramEncryption(useDatagramEncryption);
             }
-            else if (dmStrCaseCmp(key, "server_type"))
+            else if (dmStrCaseCmp(key, "server_type") == 0)
             {
                 uint32_t serverType = luaL_checknumber(L, -1);
                 connectOptions.setServerType(serverType);
             }
-            else if (dmStrCaseCmp(key, "server_address"))
+            else if (dmStrCaseCmp(key, "server_address") == 0)
             {
                 const char* serverAddress = luaL_checkstring(L, -1);
                 connectOptions.setServerAddress(serverAddress);
             }
-            else if (dmStrCaseCmp(key, "server_address"))
-            {
-                const char* serverAddress = luaL_checkstring(L, -1);
-                connectOptions.setServerAddress(serverAddress);
-            }
-            else if (dmStrCaseCmp(key, "auth_data"))
+            else if (dmStrCaseCmp(key, "auth_data") == 0)
             {
                 const char* authData = luaL_checkstring(L, -1);
                 authValues.setData(authData);
             }
-            else if (dmStrCaseCmp(key, "auth_parameters"))
+            else if (dmStrCaseCmp(key, "auth_parameters") == 0)
             {
                 const char* authParameters = luaL_checkstring(L, -1);
                 authValues.setParameters(authParameters);
             }
-            else if (dmStrCaseCmp(key, "auth_type"))
+            else if (dmStrCaseCmp(key, "auth_type") == 0)
             {
                 uint32_t authType = luaL_checknumber(L, -1);
                 authValues.setType(authType);
