@@ -101,54 +101,54 @@ static void check_roomoptions(lua_State* L, int index, ExitGames::LoadBalancing:
         while (lua_next(L, -2) != 0)
         {
             const char* key = luaL_checkstring(L, -2);
-            if (dmStrCaseCmp(key, "is_visible"))
+            if (dmStrCaseCmp(key, "is_visible") == 0)
             {
                 out->setIsVisible(lua_toboolean(L, -1));
                 dmLogInfo("IsVisible %d", out->getIsVisible());
             }
-            else if (dmStrCaseCmp(key, "is_open"))
+            else if (dmStrCaseCmp(key, "is_open") == 0)
             {
                 out->setIsOpen(lua_toboolean(L, -1));
             }
-            else if (dmStrCaseCmp(key, "supress_room_events"))
+            else if (dmStrCaseCmp(key, "supress_room_events") == 0)
             {
                 out->setSuppressRoomEvents(lua_toboolean(L, -1));
             }
-            else if (dmStrCaseCmp(key, "max_players"))
+            else if (dmStrCaseCmp(key, "max_players") == 0)
             {
                 out->setMaxPlayers(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "player_ttl"))
+            else if (dmStrCaseCmp(key, "player_ttl") == 0)
             {
                 out->setPlayerTtl(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "empty_room_ttl"))
+            else if (dmStrCaseCmp(key, "empty_room_ttl") == 0)
             {
                 out->setEmptyRoomTtl(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "lobby_type"))
+            else if (dmStrCaseCmp(key, "lobby_type") == 0)
             {
                 out->setLobbyType(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "lobby_name"))
+            else if (dmStrCaseCmp(key, "lobby_name") == 0)
             {
                 out->setLobbyName(luaL_checkstring(L, -1));
             }
-            else if (dmStrCaseCmp(key, "publish_user_id"))
+            else if (dmStrCaseCmp(key, "publish_user_id") == 0)
             {
                 out->setPublishUserID(lua_toboolean(L, -1));
             }
-            else if (dmStrCaseCmp(key, "direct_mode"))
+            else if (dmStrCaseCmp(key, "direct_mode") == 0)
             {
                 out->setDirectMode(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "props_listed_in_lobby"))
+            else if (dmStrCaseCmp(key, "props_listed_in_lobby") == 0)
             {
                 ExitGames::Common::JVector<ExitGames::Common::JString> propsListedInLobby = ExitGames::Common::JVector<ExitGames::Common::JString>();
                 check_stringarray(L, -1, &propsListedInLobby);
                 out->setPropsListedInLobby(propsListedInLobby);
             }
-            else if (dmStrCaseCmp(key, "custom_room_properties"))
+            else if (dmStrCaseCmp(key, "custom_room_properties") == 0)
             {
                 ExitGames::Common::Hashtable customRoomProperties = ExitGames::Common::Hashtable();
                 check_hashtable(L, -1, &customRoomProperties);
@@ -170,39 +170,39 @@ static void check_joinroomoptions(lua_State* L, int index, JoinRoomOptions* out)
         while (lua_next(L, -2) != 0)
         {
             const char* key = luaL_checkstring(L, -2);
-            if (dmStrCaseCmp(key, "custom_room_properties"))
+            if (dmStrCaseCmp(key, "custom_room_properties") == 0)
             {
                 check_hashtable(L, -1, &out->customRoomProperties);
             }
-            else if (dmStrCaseCmp(key, "max_players"))
+            else if (dmStrCaseCmp(key, "max_players") == 0)
             {
                 out->maxPlayers = luaL_checknumber(L, -1);
             }
-            else if (dmStrCaseCmp(key, "matchmaking_mode"))
+            else if (dmStrCaseCmp(key, "matchmaking_mode") == 0)
             {
                 out->matchmakingMode = luaL_checknumber(L, -1);
             }
-            else if (dmStrCaseCmp(key, "lobby_name"))
+            else if (dmStrCaseCmp(key, "lobby_name") == 0)
             {
                 out->lobbyName = luaL_checkstring(L, -1);
             }
-            else if (dmStrCaseCmp(key, "lobby_type"))
+            else if (dmStrCaseCmp(key, "lobby_type") == 0)
             {
                 out->lobbyType = luaL_checknumber(L, -1);
             }
-            else if (dmStrCaseCmp(key, "sql_lobby_filter"))
+            else if (dmStrCaseCmp(key, "sql_lobby_filter") == 0)
             {
                 out->sqlLobbyFilter = luaL_checkstring(L, -1);
             }
-            else if (dmStrCaseCmp(key, "expected_users"))
+            else if (dmStrCaseCmp(key, "expected_users") == 0)
             {
                 check_stringarray(L, -1, &out->expectedUsers);
             }
-            else if (dmStrCaseCmp(key, "rejoin"))
+            else if (dmStrCaseCmp(key, "rejoin") == 0)
             {
                 out->rejoin = lua_toboolean(L, -1);
             }
-            else if (dmStrCaseCmp(key, "cache_slice_index"))
+            else if (dmStrCaseCmp(key, "cache_slice_index") == 0 == 0)
             {
                 out->cacheSliceIndex = luaL_checknumber(L, -1);
             }
@@ -241,40 +241,40 @@ static void check_raiseeventoptions(lua_State* L, int index, ExitGames::LoadBala
         while (lua_next(L, -2) != 0)
         {
             const char* key = luaL_checkstring(L, -2);
-            if (dmStrCaseCmp(key, "channel_id"))
+            if (dmStrCaseCmp(key, "channel_id") == 0)
             {
                 out->setChannelID(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "event_caching"))
+            else if (dmStrCaseCmp(key, "event_caching") == 0)
             {
                 out->setEventCaching(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "receiver_group"))
+            else if (dmStrCaseCmp(key, "receiver_group") == 0)
             {
                 out->setReceiverGroup(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "interest_group"))
+            else if (dmStrCaseCmp(key, "interest_group") == 0)
             {
                 out->setInterestGroup(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "cache_slice_index"))
+            else if (dmStrCaseCmp(key, "cache_slice_index") == 0)
             {
                 out->setCacheSliceIndex(luaL_checknumber(L, -1));
             }
-            else if (dmStrCaseCmp(key, "target_players"))
+            else if (dmStrCaseCmp(key, "target_players") == 0)
             {
                 const size_t size = lua_objlen(L, -1);
                 int array[size];
                 check_int_array(L, -1, array);
                 out->setTargetPlayers(array, size);
             }
-            else if (dmStrCaseCmp(key, "web_flags"))
+            else if (dmStrCaseCmp(key, "web_flags") == 0)
             {
                 ExitGames::LoadBalancing::WebFlags flags;
                 flags.setFlags(luaL_checknumber(L, -1));
                 out->setWebFlags(flags);
             }
-            else if (dmStrCaseCmp(key, "encrypt"))
+            else if (dmStrCaseCmp(key, "encrypt") == 0)
             {
                 out->setEncrypt(lua_toboolean(L, -1));
             }
