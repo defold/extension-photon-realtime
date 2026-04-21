@@ -1,5 +1,5 @@
 /* Exit Games Common - C++ Client Lib
- * Copyright (C) 2004-2025 Exit Games GmbH. All rights reserved.
+ * Copyright (C) 2004-2026 Exit Games GmbH. All rights reserved.
  * https://www.photonengine.com
  * mailto:developer@photonengine.com
  */
@@ -84,8 +84,8 @@ namespace ExitGames
 				template<typename P1, typename P2, typename P3, typename P4, typename P5> Retainable(const P1& p1, const P2& p2, const P3& p3, const P4& p4,       P5& p5) : T(p1, p2, p3, p4, p5) , mRefCount(0) {retain();}
 				template<typename P1, typename P2, typename P3, typename P4, typename P5> Retainable(const P1& p1, const P2& p2, const P3& p3, const P4& p4, const P5& p5) : T(p1, p2, p3, p4, p5) , mRefCount(0) {retain();}
 
-				Retainable<T>(const Retainable<T>& toCopy);
-				Retainable<T>(const T& toCopy);
+				Retainable(const Retainable<T>& toCopy);
+				Retainable(const T& toCopy);
 				virtual Retainable<T>& operator=(const Retainable<T>& toCopy);
 				virtual Retainable<T>& operator=(const T& toCopy);
 
